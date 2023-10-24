@@ -141,29 +141,34 @@ def to_hex(text):
   return(string_hex)
 
 def to_matrix(text):
-  state = []
-  
-  if len(text) % 16 != 0:
-    aux = 16 - (len(text) % 16)
-    for i in range(aux):
-      text += " "
+  lista_matriz = []
 
-  n = len(text) // 16
+  aux = len(text) % 16
+  if aux:
+    text += 'd6' * ((16 - aux)/2)
 
-  for k in range(n):
+  n = 0
+
+  for k in range(0, len(text), 32):
     matriz = []
-    # todo percorrer texto inteiro
     for i in range(16):
     # two hex characters == 1 byte
-      byte = int(t[i*2:i*2+2], 16)
+      byte = (text[n*2:n*2+2])
+      #byte = int(text[n*2:n*2+2], 16)
+      try:
+        byte = int(byte,16)
+      except:
+        pass
       if i % 4 == 0:
-        matriz.append([byte])
+         matriz.append([byte])
       else:
-        matriz[i // 4].append(byte)
-    state.append(matriz)
+         matriz[i // 4].append(byte)
+      n += 1
+    lista_matriz.append(matriz)
+
        
 
-  return state
+  return lista_matriz
 
 def to_text(data):
   text = ""
@@ -171,7 +176,10 @@ def to_text(data):
     matrix = data[k]
     for i in range(4):
       for j in range(4):
-        text += format(matrix[i][j], '02x')
+        try:
+          text += format(matrix[i][j], '02x')
+        except:
+          text += matrix[i][j]
 
   return text
 
