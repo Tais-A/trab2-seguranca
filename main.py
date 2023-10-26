@@ -6,16 +6,24 @@ def open_file(file_path):
     try:
         with open(file_path, "rb") as file:
           data = base64.b16encode(file.read())
-          data = str(data,"ascii").upper()
+          data = str(data,"ascii").lower()
           return data       
     except Exception as e:
         print(f"Não foi possível ler o arquivo: {e}")
-        return None
+        return "text-short.txt"
 
 
-caminho_arquivo = input("Informe o caminho do arquivo: ")
+#caminho_arquivo = input("Informe o caminho do arquivo: ")
 
-arquivo = open_file(caminho_arquivo)
-print(arquivo)
-chave = 0x2b7e151628aed2a6abf7158809cf4f3c
-aes(arquivo, 1, chave)
+# arquivo = open_file(caminho_arquivo)
+# print(arquivo)
+# chave = "91a0546ab37caff0"
+# chave = chave.lower()
+# aes(arquivo, 1, chave)
+#plaintext = "43747273726f6f737920636f70506572"
+#plaintext = "0123456789abcdeffedcba9876543210"
+plaintext="ff0869640b53341484bfab8f4a7c43b9"
+#chave = "6d11dbca880bf900a33e86937afd41fd"
+#chave = "ead27321b58dbad22312bf5607f8d292f"
+chave = "0f1571c947d9e8590cb7add6af7f6798"
+aes(plaintext, 2, chave)
