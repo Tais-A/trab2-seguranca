@@ -19,22 +19,22 @@ SBOX = [
 
 
 INVSBOX = (
-    ['52','09','6A','D5','30','36','A5','38','BF','40','A3','9E','81','F3','D7','FB'],
-    ['7C','E3','39','82','9B','2F','FF','87','34','8E','43','44','C4','DE','E9','CB'],
-    ['54','7B','94','32','A6','C2','23','3D','EE','4C','95','0B','42','FA','C3','4E'],
-    ['08','2E','A1','66','28','D9','24','B2','76','5B','A2','49','6D','8B','D1','25'],
-    ['72','F8','F6','64','86','68','98','16','D4','A4','5C','CC','5D','65','B6','92'],
-    ['6C','70','48','50','FD','ED','B9','DA','5E','15','46','57','A7','8D','9D','84'],
-    ['90','D8','AB','00','8C','BC','D3','0A','F7','E4','58','05','B8','B3','45','06'],
-    ['D0','2C','1E','8F','CA','3F','0F','02','C1','AF','BD','03','01','13','8A','6B'],
-    ['3A','91','11','41','4F','67','DC','EA','97','F2','CF','CE','F0','B4','E6','73'],
-    ['96','AC','74','22','E7','AD','35','85','E2','F9','37','E8','1C','75','DF','6E'],
-    ['47','F1','1A','71','1D','29','C5','89','6F','B7','62','0E','AA','18','BE','1B'],
-    ['FC','56','3E','4B','C6','D2','79','20','9A','DB','C0','FE','78','CD','5A','F4'],
-    ['1F','DD','A8','33','88','07','C7','31','B1','12','10','59','27','80','EC','5F'],
-    ['60','51','7F','A9','19','B5','4A','0D','2D','E5','7A','9F','93','C9','9C','EF'],
-    ['A0','E0','3B','4D','AE','2A','F5','B0','C8','EB','BB','3C','83','53','99','61'],
-    ['17','2B','04','7E','BA','77','D6','26','E1','69','14','63','55','21','0C','7D'],
+    ['52','09','6a','d5','30','36','a5','38','bf','40','a3','9e','81','f3','d7','fb'],
+    ['7c','e3','39','82','9b','2f','ff','87','34','8e','43','44','c4','de','e9','cb'],
+    ['54','7b','94','32','a6','c2','23','3d','ee','4c','95','0b','42','fa','c3','4e'],
+    ['08','2e','a1','66','28','d9','24','b2','76','5b','a2','49','6d','8b','d1','25'],
+    ['72','f8','f6','64','86','68','98','16','d4','a4','5c','cc','5d','65','b6','92'],
+    ['6c','70','48','50','fd','ed','b9','da','5e','15','46','57','a7','8d','9d','84'],
+    ['90','d8','ab','00','8c','bc','d3','0a','f7','e4','58','05','b8','b3','45','06'],
+    ['d0','2c','1e','8f','ca','3f','0f','02','c1','af','bd','03','01','13','8a','6b'],
+    ['3a','91','11','41','4f','67','dc','ea','97','f2','cf','ce','f0','b4','e6','73'],
+    ['96','ac','74','22','e7','ad','35','85','e2','f9','37','e8','1c','75','df','6e'],
+    ['47','f1','1a','71','1d','29','c5','89','6f','b7','62','0e','aa','18','be','1b'],
+    ['fc','56','3e','4b','c6','d2','79','20','9a','db','c0','fe','78','cd','5a','f4'],
+    ['1f','dd','a8','33','88','07','c7','31','b1','12','10','59','27','80','ec','5f'],
+    ['60','51','7f','a9','19','b5','4a','0d','2d','e5','7a','9f','93','c9','9c','ef'],
+    ['a0','e0','3b','4d','ae','2a','f5','b0','c8','eb','bb','3c','83','53','99','61'],
+    ['17','2b','04','7e','ba','77','d6','26','e1','69','14','63','55','21','0c','7d'],
   )
 
 
@@ -258,15 +258,14 @@ def estado_rod(matrix, chave):
   return estado
 
 def estado_rod_inv(matrix, chave):
-  estado = mix_columns(matrix,2)
-  print("mix =====> ", estado)
-  estado = shift_rows(estado,2)
-  print("shift ===> ", estado)
-
-  for linha in matrix:
-    x = sub_bytes(linha,1)
-    estado.append(x)
-  estado = add_round_key(chave, matrix)
+  estado = shift_rows(matrix,2)
+  dado = []
+  for linha in estado:
+    x = sub_bytes(linha,2)
+    dado.append(x)
+  estado = add_round_key(chave, dado)
+  estado = mix_columns(estado,2)
+  
   return estado
   
 def aes(plaintext,valor,chave):
@@ -274,8 +273,6 @@ def aes(plaintext,valor,chave):
   matrix_chave = to_matrix(chave)
   chave_expandida = key_expansion(matrix_chave)
   rodadas = 10
-
-
   
   if valor == 1:
 
@@ -308,13 +305,14 @@ def aes(plaintext,valor,chave):
 
 
     #Ultima rodadada
-    # cifra = []
-    # for linha in estado:
-    #   x = sub_bytes(linha,2)
-    #   cifra.append(x)
-    # cifra = shift_rows(cifra,valor)
-    # cifra = add_round_key(cifra,chave_expandida[-1])
-    # print(to_text(cifra))
+    estado = shift_rows(estado,2)
+    texto = []
+    for linha in estado:
+       x = sub_bytes(linha,2)
+       texto.append(x)
+
+    texto = add_round_key(texto,chave_expandida[0])
+    print(to_text(transpose(texto)))
 
 
 
