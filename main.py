@@ -29,5 +29,3 @@ plaintext="0123456789abcdeffedcba9876543210"
 chave = "0f1571c947d9e8590cb7add6af7f6798"
 aes(plaintext, 1, chave)
 
-0f 15 71 c9 47 d9 e8 59 0c b7 ad d6 af 7f 67 98
-
