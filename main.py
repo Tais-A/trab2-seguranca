@@ -22,8 +22,9 @@ def open_file(file_path):
 # aes(arquivo, 1, chave)
 #plaintext = "43747273726f6f737920636f70506572"
 #plaintext = "0123456789abcdeffedcba9876543210"
-plaintext="ff0869640b53341484bfab8f4a7c43b9"
+plaintext="ff0b844a0853bf7c6934ab4364148fb9"
 #chave = "6d11dbca880bf900a33e86937afd41fd"
 #chave = "ead27321b58dbad22312bf5607f8d292f"
 chave = "0f1571c947d9e8590cb7add6af7f6798"
 aes(plaintext, 2, chave)
+
