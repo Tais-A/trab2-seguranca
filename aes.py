@@ -108,10 +108,12 @@ def mix_columns(estado, valor):
   return resultado
 
 def rot_word(linha):
-  return(linha[1:]+[linha[0]])
+    return(linha[1:]+[linha[0]])
+    #return [str(linha[1])] + [linha[0]] 
+
 
 def transpose(matrix):
-    return [list(row) for row in zip(*matrix)]
+    return [list(row) for row in zip(*matrix)] 
 
 def key_expansion(chave, rodadas=10):
     len_word = (rodadas + 1) * 4
@@ -152,12 +154,12 @@ def xor(dado1, dado2):
   return resultado
 
 def add_round_key(matrix, chave):
-  resultado = [[[] for _ in range(4)] for _ in range(4)]
-  for i in range(4):
-      for j in range(4):
-        resultado[i][j] = xor(matrix[i][j],chave[i][j])
+    resultado = [[[] for _ in range(4)] for _ in range(4)]
+    for i in range(4):
+        for j in range(4):
+            resultado[i][j] = xor(matrix[i][j], chave[i][j])
+    return resultado
 
-  return resultado
 
 def divideBlocks(lista):
   blocos = []
@@ -238,9 +240,9 @@ def aes(plaintext,valor,chave):
       cifra.append(x)
     cifra = shift_rows(cifra, valor)
     cifra = add_round_key(cifra,chave_expandida[-1])
-    print(to_text(transpose(cifra)))
+    return (to_text(transpose(cifra))) 
 
-  else:
+  elif valor == 2:
 
     #Primeira rodada
     estado = add_round_key(chave_expandida[-1],matrix_text)
@@ -260,7 +262,7 @@ def aes(plaintext,valor,chave):
        texto.append(x)
 
     texto = add_round_key(texto,chave_expandida[0])
-    print(to_text(transpose(texto)))
+    return (to_text(transpose(texto)))
 
 
 
