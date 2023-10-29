@@ -115,7 +115,7 @@ def rot_word(linha):
 def transpose(matrix):
     return [list(row) for row in zip(*matrix)] 
 
-def key_expansion(chave, rodadas=10):
+def key_expansion(chave, rodadas):
     len_word = (rodadas + 1) * 4
     lista = []
     for linha in chave:
@@ -160,24 +160,6 @@ def add_round_key(matrix, chave):
             resultado[i][j] = xor(matrix[i][j], chave[i][j])
     return resultado
 
-
-def divideBlocks(lista):
-  blocos = []
-  cont = 0 
-
-  if len(lista) % 16 != 0:
-    for i in range(16 -(len(lista) % 16)):
-      lista.append('00')
-
-  n = len(lista) // 16
-  
-  for i in range(n):
-    bloco = []
-    for j in range(16):
-      bloco.append(lista[cont])
-      cont+= 1
-    blocos.append(bloco)
-  return blocos
   
 def to_matrix(bloco):
   matrix = []
@@ -218,11 +200,10 @@ def estado_rod_inv(matrix, chave):
   
   return estado
   
-def aes(plaintext,valor,chave):
+def aes(plaintext,valor,chave,rodadas):
   matrix_text = transpose(to_matrix(plaintext))
   matrix_chave = to_matrix(chave)
   chave_expandida = key_expansion(matrix_chave)
-  rodadas = 10
   
   if valor == 1:
 
