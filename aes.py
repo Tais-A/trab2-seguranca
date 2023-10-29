@@ -109,8 +109,7 @@ def mix_columns(estado, valor):
 
 def rot_word(linha):
     return(linha[1:]+[linha[0]])
-    #return [str(linha[1])] + [linha[0]] 
-
+    
 
 def transpose(matrix):
     return [list(row) for row in zip(*matrix)] 
@@ -141,7 +140,6 @@ def key_expansion(chave, rodadas):
     chaves = []
     for i in range(0,len(word),4):
       grupo = transpose(word[i:i+4])
-      #grupo = word[i:i+4]
       chaves.append(grupo)
 
     return chaves
@@ -203,7 +201,7 @@ def estado_rod_inv(matrix, chave):
 def aes(plaintext,valor,chave,rodadas):
   matrix_text = transpose(to_matrix(plaintext))
   matrix_chave = to_matrix(chave)
-  chave_expandida = key_expansion(matrix_chave)
+  chave_expandida = key_expansion(matrix_chave,rodadas)
   
   if valor == 1:
 
@@ -230,10 +228,7 @@ def aes(plaintext,valor,chave,rodadas):
 
     #Rodadas
     for i in range(rodadas-1,0,-1):
-      print(i)
       estado = estado_rod_inv(estado,chave_expandida[i])
-      print('estado', to_text(estado))
-
 
     #Ultima rodadada
     estado = shift_rows(estado,2)

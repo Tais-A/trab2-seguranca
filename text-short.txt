@@ -1,1 +1,0 @@
-The design and strength of all key lengths of the AES algorithm
