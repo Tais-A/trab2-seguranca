@@ -36,7 +36,7 @@ elif opcao == 4:
     plaintext = entradas.mensagem()
     chave = entradas.chaveDecifra()
     rodadas = entradas.rodadas()
-    nonce = entradas.nonce()
+    nonce = entradas.nonceDes()
     
     print("\n\nDECIFRAR-AES/CTR\n")
     print("DECIFRADO (AES-CTR):", cifrar_aes_ctr(plaintext, chave, nonce, rodadas))
@@ -66,7 +66,7 @@ elif opcao == 6:
     arquivo = entradas.abreArquivo(caminho)
     chave = entradas.chaveDecifra()
     rodadas = entradas.rodadas()
-    nonce = entradas.nonce()
+    nonce = entradas.nonceDes()
     nome,formato = caminho.split('.',1)
 
     cifra = cifrar_aes_ctr(arquivo, chave, nonce, rodadas)
@@ -77,7 +77,7 @@ elif opcao == 6:
     with open(nome_novo, "wb") as arquivo:
         arquivo.write(cifra_byte)
 
-    print("\n\nCIFRAR-ARQUIVO-AES/CTR\n")
+    print("\n\nDECIFRAR-ARQUIVO-AES/CTR\n")
     print("ARQUIVO SALVO COMO:", nome_novo)
 
 

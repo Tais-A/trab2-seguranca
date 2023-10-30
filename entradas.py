@@ -19,7 +19,7 @@ def chaveCifra():
   if chave == "":
       chave = os.urandom(16)
       chave = str(chave.hex())
-  print("SALVE SUA CHAVE\n=============================\n",
+  print("\n\nSALVE SUA CHAVE\n=============================\n",
          chave,"\n-----------------------------\n")
   return chave
 
@@ -37,9 +37,15 @@ def nonce():
   if nonce == "":
     nonce = os.urandom(16)
     nonce = str(nonce.hex())
-  print("SALVE SEU VETOR DE INICIALIZAÇÃO\n=============================\n",
+  print("\n\nSALVE SEU VETOR DE INICIALIZAÇÃO\n=============================\n",
          nonce,"\n-----------------------------\n")
   return nonce
+
+
+def nonceDes():   
+  nonce = input("Digite o vetor de inicialização (deve ser uma string hexadecimal de 32 caracteres: ")
+  return nonce
+
 
 def caminho():
   return input("Digite o caminho do arquivo: ")
